@@ -2,6 +2,9 @@
 
 Firmware pro robota s deskou **RBCX** s **ESP32**, vyvíjený v **PlatformIO**. 
 
+![IMG_20250211_205349611](IMG_20250211_205349611.jpg)
+![IMG_20250211_205402938](IMG_20250211_205402938.jpg)
+
 ## 📂 Struktura projektu
 ```
 📁 RBCX-Robot - verze_pro_github/
