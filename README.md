@@ -69,6 +69,9 @@ Zde muze nastavit:
         , motor_max_acceleration(10000)
 a další.
 
+## 📄 Dokumentace
+Všechny funkce, které můžete použít, najdete na [RB3204-RBCX-Robotka Library Documentation](https://roboticsbrno.github.io/RB3204-RBCX-Robotka-library/modules.html)
+
 ### Doporučení
 Doporučujeme konzultovat s moderními nástroji umělé inteligence, které vám mohou poskytnout detailní vysvětlení účelu jednotlivých souborů v projektu a podpořit tak lepší pochopení struktury a funkcionality.
 
