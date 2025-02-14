@@ -7,13 +7,23 @@
 void sprint(int squers){
     forward(300 * squers ,80);
 }
-void slalom(){
-    forward(350,60);
+void slalom(std::string side){
+    if(side == "Right"){
+    forward(300,60);
     turn_on_spot(90);
     forward(150,60);
-    radius_l(180, 100, 60);
-    radius_r(180, 150, 60);
+    radius_l(180, 92, 60);
+    radius_r(180, 92, 60);
     forward(150,60);
+    }
+    else if(side == "Left"){
+    forward(300,60);
+    turn_on_spot(-90);
+    forward(150,60);
+    radius_r(180, 92, 60);
+    radius_l(180, 92, 60);
+    forward(150,60);
+    }
 }
 void kulicky(){
     turn_on_spot(90);
@@ -39,27 +49,63 @@ void kulicky(){
     turn_on_spot(-90);
     forward(340,60);
 }
-void medved(){  
-    rkServosSetPosition(4, 88);
-    forward(450,70);
-    radius_r(90, 75, 70);
-    forward(450,70);
-    delay(10);
-    back_buttons(45);
-    delay(10);
-    rkServosSetPosition(4, -41);
-    delay(10);
-    forward(85,40);
-    delay(10);
-    turn_on_spot(90);
-    delay(10);
-    back_buttons(30);
-    delay(10);
-    forward(85,40);
-    delay(10);
-    forward(300,70);
-    turn_on_spot(-90);
-    forward(300,70);
+void medved(std::string side){
+    if(side == "Right"){
+        rkServosSetPosition(4, 88);
+        delay(10);
+        forward(450,70);
+        delay(10);
+        radius_r(90, 75, 70);
+        delay(10);
+        forward(450,70);
+        delay(10);
+        back_buttons(45);
+        delay(10);
+        rkServosSetPosition(4, -41);
+        delay(10);
+        forward(89,30);
+        delay(10);
+        turn_on_spot(90);
+        delay(10);
+        back_buttons(30);
+        delay(10);
+        forward(89,30);
+        delay(10);
+        forward(300,70);
+        delay(10);
+        turn_on_spot(-90);
+        delay(10);
+        forward(300,70);
+    }
+    else if(side == "Left"){
+        rkServosSetPosition(4, 88);
+        delay(10);
+        forward(450,70);
+        delay(10);
+        //rkServosSetPosition(4, 40);// sem kdyztak dodat privreni klepet, ne, tonefunguje
+        radius_l(90, 75, 70);
+        delay(10);
+        forward(450,70);
+        delay(10);
+        back_buttons(45);
+        delay(10);
+        rkServosSetPosition(4, -41);
+        delay(10);
+        forward(89,30);
+        delay(10);
+        turn_on_spot(-90);
+        delay(10);
+        back_buttons(30);
+        delay(10);
+        forward(89,30);
+        delay(10);
+        forward(300,70);
+        delay(10);
+        turn_on_spot(90);
+        delay(10);
+        forward(300,70);
+    }
+
 }
 void bludiste(){
     forward(300,70);
@@ -188,12 +234,14 @@ enum RobotButton {
     RIGHT,
     LEFT,
     ON,
+    OFF,
     BUTTON1,
     BUTTON2
 };
 
 RobotButton getPressed() {
     if (rkButtonUp()) return UP;
+    if (rkButtonOff()) return OFF;
     if (rkButtonDown()) return DOWN;
     if (rkButtonRight()) return RIGHT;
     if (rkButtonLeft()) return LEFT;
@@ -208,6 +256,14 @@ void setup() {
     
     while(true) {
         switch(getPressed()) {
+            case OFF:
+                rkLedRed(true);
+                rkBuzzerSet(true);
+                delay(300);
+                rkBuzzerSet(false);
+                delay(1000);
+                rkLedRed(false);
+                break;
             case UP:
                 rkLedBlue(true);
                 delay(3000);
@@ -218,13 +274,19 @@ void setup() {
             case DOWN:
                 rkLedYellow(true);
                 delay(10000);
-                medved();
+                medved("Right");
                 delay(10000);
                 bludiste();
                 delay(10000);
+                turn_on_spot(180);
+                delay(10000);
                 kulicky();
                 delay(10000);
-                slalom();
+                turn_on_spot(180);
+                delay(10000);
+                slalom("Right");
+                delay(10000);
+                turn_on_spot(180);
                 delay(10000);
                 sprint(4);
                 rkLedYellow(false);
@@ -243,7 +305,9 @@ void setup() {
             case LEFT:
                 rkLedYellow(true);
                 delay(5000);
-                medved();
+                medved("Right");
+                delay(10000);
+                medved("Left");
                 rkLedYellow(false);
                 break;
                 
@@ -257,7 +321,9 @@ void setup() {
             case BUTTON1:
                 rkLedGreen(true);
                 delay(3000);
-                slalom();
+                slalom("Right");
+                delay(10000);
+                slalom("Left");
                 rkLedGreen(false);
                 break;
                 
