@@ -12,40 +12,37 @@ void slalom(std::string side){
     forward(300,60);
     turn_on_spot(90);
     forward(150,60);
-    radius_l(180, 92, 60);
-    radius_r(180, 92, 60);
+    radius_l(180, 90, 60);
+    radius_r(184, 90, 60);
     forward(150,60);
     }
     else if(side == "Left"){
     forward(300,60);
     turn_on_spot(-90);
     forward(150,60);
-    radius_r(180, 92, 60);
-    radius_l(180, 92, 60);
+    radius_r(180, 90, 60);
+    radius_l(184, 90, 60);
     forward(150,60);
     }
 }
 void kulicky(){
     turn_on_spot(90);
-    forward(45,30);
+    forward(46,30);
     turn_on_spot(-90);
-    bool rightDone, leftDone;
-    rkMotorsDriveRightAsync(660 * ticksToMm * -1, 30 * MP, [&]() {
-        printf("Pravy motor dojel!\n");
-        rightDone = true;
-    });
-    rkMotorsDriveLeftAsync(660 * ticksToMm * -1, 30 * ML, [&]() {
-        printf("Levy motor dojel!\n");
-        leftDone = true;
-    });
-    while (!rightDone || !leftDone) {
-        rkServosSetPosition(1, 10);
-        delay(200);
-        rkServosSetPosition(1, 90);
-        delay(150);
-    }
+    back_buttons(30);
+    forward(150,30);
+    rkServosSetPosition(1, 30);
+    delay(200);
+    rkServosSetPosition(1, 90);
+    forward(300,50);
+    rkServosSetPosition(1, 30);
+    delay(200);
+    rkServosSetPosition(1, 90);
+    forward(300,50);
+    rkServosSetPosition(1, 30);
+    delay(200);
+    rkServosSetPosition(1, 90);
     forward(-70,30);
-    delay(100);
     turn_on_spot(-90);
     forward(340,60);
 }
@@ -146,6 +143,9 @@ void bludiste(){
         }
         delay(100);
     }
+    rkBuzzerSet(true);
+    delay(200);
+    rkBuzzerSet(false);
 }
 ////////////////////////////////////////////
 void trap() {
@@ -156,47 +156,6 @@ void trap() {
 void test_batery(){
     printf("batery percent: %u\n", rkBatteryPercent());
     printf("batery percent: %u\n", rkBatteryVoltageMv()/1000);
-}
-void test_servos(){
-    rkServosSetPosition(1, 90);//dole
-    delay(1000);
-    rkServosSetPosition(4, -41);// vevnitr
-    delay(1000);
-    rkServosSetPosition(1, 30);
-    delay(1000);
-    rkServosSetPosition(4, 88);
-    delay(1000);
-    rkServosSetPosition(1, 90);
-    delay(1000);
-    rkServosSetPosition(4, -41);
-    delay(1000); 
-}
-void test_motory(){
-    forward(1000,50);
-    encodery();
-    delay(1000);
-    //back_buttons();
-    encodery();
-    delay(1000);
-    turn_on_spot(90);
-    encodery();
-    delay(1000);
-    turn_on_spot(-90);
-    encodery();
-    delay(1000);
-    radius_r(90, 300, 100);
-    encodery();
-    delay(1000);
-    radius_l(90, 300, 100);
-    encodery();
-    delay(1000);
-}
-void test_ultrazvuk(){
-    while(true){
-        printf("ultrazvuk 1: %u\n", rkUltraMeasure(1));
-        printf("ultrazvuk 3: %u\n", rkUltraMeasure(3));
-        delay(500);
-    }
 }
 void configurating(){
     Serial.begin(115200);
@@ -258,79 +217,57 @@ void setup() {
         switch(getPressed()) {
             case OFF:
                 rkLedRed(true);
-                rkBuzzerSet(true);
-                delay(300);
-                rkBuzzerSet(false);
-                delay(1000);
+                delay(3000);
+
                 rkLedRed(false);
                 break;
+
             case UP:
                 rkLedBlue(true);
                 delay(3000);
-                radius_r(180, 300, 60);
+                bludiste();
                 rkLedBlue(false);
                 break;
-                
+
             case DOWN:
                 rkLedYellow(true);
-                delay(10000);
+                delay(3000);
                 medved("Right");
-                delay(10000);
-                bludiste();
-                delay(10000);
-                turn_on_spot(180);
-                delay(10000);
-                kulicky();
-                delay(10000);
-                turn_on_spot(180);
-                delay(10000);
-                slalom("Right");
-                delay(10000);
-                turn_on_spot(180);
-                delay(10000);
-                sprint(4);
                 rkLedYellow(false);
                 break;
                 
             case RIGHT:
                 rkLedGreen(true);
-                delay(5000);
-                bludiste();
-                rkBuzzerSet(true);
-                delay(200);
-                rkBuzzerSet(false);
+                delay(3000);
+                kulicky();
                 rkLedGreen(false);
                 break;
                 
             case LEFT:
                 rkLedYellow(true);
-                delay(5000);
-                medved("Right");
-                delay(10000);
-                medved("Left");
+                delay(3000);
+                slalom("Right");
                 rkLedYellow(false);
                 break;
                 
             case ON:
                 rkLedRed(true);
-                delay(5000);
-                kulicky();
+                delay(3000);
+                slalom("Left");
                 rkLedRed(false);
                 break;
                 
             case BUTTON1:
                 rkLedGreen(true);
                 delay(3000);
-                slalom("Right");
-                delay(10000);
-                slalom("Left");
+                sprint(4);
                 rkLedGreen(false);
                 break;
                 
             case BUTTON2:
                 rkLedRed(true);
                 delay(3000);
-                sprint(4);
+                
                 rkLedRed(false);
                 break;
         }
