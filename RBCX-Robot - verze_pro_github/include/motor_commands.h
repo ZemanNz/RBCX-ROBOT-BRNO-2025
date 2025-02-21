@@ -130,13 +130,13 @@ void srovnani(){
   delay(10);
   back_buttons(30);
   delay(10);
-  forward(89,30);
+  forward(84,30);
   delay(10);
   turn_on_spot(-90);
   delay(10);
   back_buttons(30);
   delay(10);
-  forward(89,30);
+  forward(84,30);
   delay(10);
 
 }

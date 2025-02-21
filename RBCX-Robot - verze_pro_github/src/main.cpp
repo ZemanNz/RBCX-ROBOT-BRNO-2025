@@ -4,47 +4,60 @@
 #include "robotka.h"
 #include "motor_commands.h"
 #include "barvy.h"
-void sprint(int squers){
-    forward(300 * squers ,80);
+void ruka_dolu(){
+    rkServosSetPosition(1, 20);
+    delay(70);
+    rkServosSetPosition(1, -10);
+    delay(70);
+    rkServosSetPosition(1, -20);
+    delay(70);
+    rkServosSetPosition(1, -50);
+    delay(70);
+    rkServosSetPosition(1, -60);
+    delay(70);
+    rkServosSetPosition(1, -64);
+    delay(200);
 }
-void slalom(std::string side){
-    if(side == "Right"){
+void ruka_nahoru(){
+    rkServosSetPosition(1, -10);
+    delay(70);
+    rkServosSetPosition(1, 40);
+    delay(70);
+    rkServosSetPosition(1, 50);
+    delay(70);
+}
+void sprint(int vzdalenost){
+    forward(vzdalenost ,60);
+}
+void slalom(){
     forward(300,60);
     turn_on_spot(90);
     forward(150,60);
     radius_l(180, 90, 60);
     radius_r(184, 90, 60);
-    forward(150,60);
-    }
-    else if(side == "Left"){
-    forward(300,60);
+    back_buttons(30);
+    forward(84,30);
+    turn_on_spot(90);
+    back_buttons(30);
+    forward(84,30);
     turn_on_spot(-90);
-    forward(150,60);
-    radius_r(180, 90, 60);
-    radius_l(184, 90, 60);
-    forward(150,60);
-    }
+    forward(300,50);
 }
 void kulicky(){
+    forward(90,30);
+    ruka_dolu();
+    ruka_nahoru();
+    forward(300,50);
+    ruka_dolu();
+    ruka_nahoru();
+    forward(280,50);
+    ruka_dolu();
+    ruka_nahoru();
+    forward(-50, 30);
+    turn_on_spot(-90);
+    srovnani();
     turn_on_spot(90);
-    forward(46,30);
-    turn_on_spot(-90);
-    back_buttons(30);
-    forward(150,30);
-    rkServosSetPosition(1, 30);
-    delay(200);
-    rkServosSetPosition(1, 90);
-    forward(300,50);
-    rkServosSetPosition(1, 30);
-    delay(200);
-    rkServosSetPosition(1, 90);
-    forward(300,50);
-    rkServosSetPosition(1, 30);
-    delay(200);
-    rkServosSetPosition(1, 90);
-    forward(-70,30);
-    turn_on_spot(-90);
-    forward(340,60);
+    forward(300,60);
 }
 void medved(std::string side){
     if(side == "Right"){
@@ -119,7 +132,13 @@ void bludiste(){
         }
         else{
             turn_on_spot(-90);
-            srovnani();
+            if(rkUltraMeasure(3) > 250){
+                srovnani(); 
+                turn_on_spot(90); 
+            }
+            else{
+                srovnani();
+            }
         }
         delay(100);
     }
@@ -143,9 +162,6 @@ void bludiste(){
         }
         delay(100);
     }
-    rkBuzzerSet(true);
-    delay(200);
-    rkBuzzerSet(false);
 }
 ////////////////////////////////////////////
 void trap() {
@@ -217,57 +233,125 @@ void setup() {
         switch(getPressed()) {
             case OFF:
                 rkLedRed(true);
-                delay(3000);
-
+                delay(10000);
+                rkServosSetPosition(1, 50);
+                slalom();//upravit srovnani//done
+                delay(10000);
+                bludiste();//vypnout zvuk
+                delay(100);
+                turn_on_spot(-90);
+                back_buttons(30);
+                forward(84,30);
+                turn_on_spot(-90);
+                back_buttons(30);
+                forward(84,30);
+                turn_on_spot(90);
+                delay(10000);
+                medved("Right");
+                delay(10000);
+                forward(600,70);
+                turn_on_spot(-90);
+                forward(300,50);
+                delay(10000);
                 rkLedRed(false);
                 break;
 
             case UP:
                 rkLedBlue(true);
-                delay(3000);
-                bludiste();
+                delay(10000);
+                rkServosSetPosition(1, 50);
+                back_buttons(20);//srovnani pred startem
+                sprint(2484);//85
                 rkLedBlue(false);
                 break;
 
             case DOWN:
-                rkLedYellow(true);
-                delay(3000);
-                medved("Right");
+                rkLedYellow(true);//-65  dole
+                delay(10000);
+                rkServosSetPosition(1, 50);
+                slalom();
                 rkLedYellow(false);
                 break;
                 
             case RIGHT:
                 rkLedGreen(true);
-                delay(3000);
-                kulicky();
+                delay(10000);
+                rkServosSetPosition(1, 50);
+                medved("Right");
                 rkLedGreen(false);
                 break;
                 
             case LEFT:
                 rkLedYellow(true);
-                delay(3000);
-                slalom("Right");
+                delay(10000);
+                rkServosSetPosition(1, 50);
+                bludiste();
                 rkLedYellow(false);
                 break;
                 
             case ON:
                 rkLedRed(true);
-                delay(3000);
-                slalom("Left");
+                delay(10000);
+                rkServosSetPosition(1, 50);
+                kulicky();
                 rkLedRed(false);
                 break;
                 
             case BUTTON1:
                 rkLedGreen(true);
-                delay(3000);
-                sprint(4);
+                delay(10000);
+                rkServosSetPosition(1, 50);
+                slalom();//upravit srovnani//done
+                delay(10000);
+                bludiste();//vypnout zvuk
+                delay(100);
+                turn_on_spot(-90);
+                back_buttons(30);
+                forward(84,30);
+                turn_on_spot(-90);
+                back_buttons(30);
+                forward(84,30);
+                turn_on_spot(90);
+                delay(10000);
+                medved("Right");
+                delay(10000);
+                kulicky();
+                delay(10000);
                 rkLedGreen(false);
                 break;
                 
             case BUTTON2:
                 rkLedRed(true);
-                delay(3000);
-                
+                delay(10000);
+                rkServosSetPosition(1, 50);
+                back_buttons(20);//srovnani pred startem
+                sprint(2484);
+                turn_on_spot(90);
+                back_buttons(30);
+                forward(84,30);
+                delay(10);
+                turn_on_spot(90);
+                back_buttons(30);
+                forward(84,30);
+                turn_on_spot(-90);
+                delay(10);
+                delay(10000);
+                slalom();
+                delay(10000);
+                bludiste();
+                delay(100);
+                turn_on_spot(-90);
+                back_buttons(30);
+                forward(84,30);
+                turn_on_spot(-90);
+                back_buttons(30);
+                forward(84,30);
+                turn_on_spot(90);
+                delay(10000);
+                medved("Right");
+                delay(10000);
+                kulicky();
+                delay(10000);
                 rkLedRed(false);
                 break;
         }
