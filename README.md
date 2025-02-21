@@ -1,4 +1,4 @@
-# 🤖 RBCX Robot
+# VÍTĚZNÝ ROBOT na ROBOTIADA 2025 🤖
 
 Firmware pro robota s deskou **RBCX** s **ESP32**, vyvíjený v **PlatformIO**. 
 
