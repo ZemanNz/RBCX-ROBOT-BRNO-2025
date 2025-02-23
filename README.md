@@ -54,7 +54,7 @@ RK_LED_Blue(false); // Vypnutí modré LED
 - **4x konektor pro motory s enkodéry**
 - **4x sada pinů pro ultrazvukové senzory oznacene jako U1- U4**
 - **4x servo konektory**
-- **Možnost připojit tlačítka na IN3 a IN4 (piny 34, 35), nebo další (doporučuji konzultaci)**
+- **Možnost připojit tlačítka na IN1 a IN2 (analogove hodnoty (ale možné použít jako datové), piny 36, 39) ,IN3 a IN4 (analogove hodnty (ale možné použít jako datové), piny 34, 35), Piny GPIO (na obrazku), piny (dál od středu) -> 27, (blíže) -> 14, nebo další (doporučuji konzultaci)**
 - **Napájení**
 
 
