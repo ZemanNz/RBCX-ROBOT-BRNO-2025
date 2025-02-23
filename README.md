@@ -58,8 +58,8 @@ RK_LED_Blue(false); // Vypnutí modré LED
 - **Napájení**
 
 
-![IMG_20250211_205402938]()
-
+![IMG_20250211_205402938](SENZORY-15-edit.jpg)
+![IMG_20250211_205402938](SENZORY-25-edit.jpg)
 
 ### Nastavení RBCX knihovny v kódu
 V `main.cpp` nastavujeme **rkConfig** ve funkci setup():
