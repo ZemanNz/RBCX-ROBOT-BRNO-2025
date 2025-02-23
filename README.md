@@ -57,6 +57,10 @@ RK_LED_Blue(false); // Vypnutí modré LED
 - **Možnost připojit tlačítka na IN3 a IN4 (piny 34, 35), nebo další (doporučuji konzultaci)**
 - **Napájení**
 
+
+![IMG_20250211_205402938]()
+
+
 ### Nastavení RBCX knihovny v kódu
 V `main.cpp` nastavujeme **rkConfig** ve funkci setup():
 Po ozaceni **rkConfig** a zmacknuti klavesy F12 se dostaneme do Nastavení RBCX knihovny.
@@ -82,6 +86,7 @@ Doporučujeme konzultovat s moderními nástroji umělé inteligence, které vá
 - [RB3204 RBCX](https://github.com/RoboticsBrno/RB3204-RBCX/tree/master)
 - [RB3204-RBCX-Robotka Library Documentation](https://roboticsbrno.github.io/RB3204-RBCX-Robotka-library/modules.html)
 - [RB3204-RBCX-Robotka Library](https://github.com/RoboticsBrno/RB3204-RBCX-Robotka-library)
+- [Hodně info:](https://robotka.robotickytabor.cz/coding/000_vyvojove_prostredi.html)
 
 🎯 **Autor:** *(NZ)*
 
